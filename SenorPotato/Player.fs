@@ -1,4 +1,4 @@
-﻿namespace SenorPotato
+﻿module Player
 
 type Skills = { Defence: int
                 Attack: int

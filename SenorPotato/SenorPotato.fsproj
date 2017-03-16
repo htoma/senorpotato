@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Player.fs" />
+    <Compile Include="CardPlay.fs" />
+    <Compile Include="Team.fs" />
     <None Include="Script.fsx" />
   </ItemGroup>
   <PropertyGroup>
