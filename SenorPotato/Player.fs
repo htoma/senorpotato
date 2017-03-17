@@ -9,4 +9,6 @@ type Player = { Name: string
                 Description: string
                 Overall: int
                 Skills: Skills
-                Captain: Skills->Skills }
+                CaptainBonus: Skills->Skills
+                IsCaptain: bool }
+                with member this.CompleteSkills = if this.IsCaptain then this.CaptainBonus this.Skills else this.Skills
