@@ -1,0 +1,274 @@
+{
+"_links": {
+"self": {
+"href": "http://api.football-data.org/v1/teams/4/players"
+},
+"team": {
+"href": "http://api.football-data.org/v1/teams/4"
+}
+},
+"count": 29,
+"players": [
+  {
+"name": "Raphaël Guerreiro",
+"position": "Left-Back",
+"jerseyNumber": 13,
+"dateOfBirth": "1993-12-22",
+"nationality": "Portugal",
+"contractUntil": "2020-06-30",
+"marketValue": "12,000,000 €"
+},
+  {
+"name": "Marc Bartra",
+"position": "Centre Back",
+"jerseyNumber": 5,
+"dateOfBirth": "1991-01-15",
+"nationality": "Spain",
+"contractUntil": "2020-06-30",
+"marketValue": "8,000,000 €"
+},
+  {
+"name": "André Schürrle",
+"position": "Left Wing",
+"jerseyNumber": 21,
+"dateOfBirth": "1990-11-06",
+"nationality": "Germany",
+"contractUntil": "2021-06-30",
+"marketValue": "25,000,000 €"
+},
+  {
+"name": "Sebastian Rode",
+"position": "Central Midfield",
+"jerseyNumber": 18,
+"dateOfBirth": "1990-10-11",
+"nationality": "Germany",
+"contractUntil": "2020-06-30",
+"marketValue": "10,000,000 €"
+},
+  {
+"name": "Mario Götze",
+"position": "Attacking Midfield",
+"jerseyNumber": 10,
+"dateOfBirth": "1992-06-03",
+"nationality": "Germany",
+"contractUntil": "2020-06-30",
+"marketValue": "28,000,000 €"
+},
+  {
+"name": "Roman Bürki",
+"position": "Keeper",
+"jerseyNumber": 38,
+"dateOfBirth": "1990-11-14",
+"nationality": "Switzerland",
+"contractUntil": "2019-06-30",
+"marketValue": "6,000,000 €"
+},
+  {
+"name": "Roman Weidenfeller",
+"position": "Keeper",
+"jerseyNumber": 1,
+"dateOfBirth": "1980-08-06",
+"nationality": "Germany",
+"contractUntil": "2017-06-30",
+"marketValue": "1,000,000 €"
+},
+  {
+"name": "Hendrik Bonmann",
+"position": "Keeper",
+"jerseyNumber": 39,
+"dateOfBirth": "1994-01-22",
+"nationality": "Germany",
+"contractUntil": "2018-06-30",
+"marketValue": "150,000 €"
+},
+  {
+"name": "Sokratis",
+"position": "Centre Back",
+"jerseyNumber": 25,
+"dateOfBirth": "1988-06-09",
+"nationality": "Greece",
+"contractUntil": "2019-06-30",
+"marketValue": "22,000,000 €"
+},
+  {
+"name": "Neven Subotic",
+"position": "Centre Back",
+"jerseyNumber": 4,
+"dateOfBirth": "1988-12-10",
+"nationality": "Serbia",
+"contractUntil": "2018-06-30",
+"marketValue": "8,000,000 €"
+},
+  {
+"name": "Matthias Ginter",
+"position": "Centre Back",
+"jerseyNumber": 28,
+"dateOfBirth": "1994-01-19",
+"nationality": "Germany",
+"contractUntil": "2019-06-30",
+"marketValue": "12,000,000 €"
+},
+  {
+"name": "Marcel Schmelzer",
+"position": "Left-Back",
+"jerseyNumber": 29,
+"dateOfBirth": "1988-01-22",
+"nationality": "Germany",
+"contractUntil": "2021-06-30",
+"marketValue": "9,000,000 €"
+},
+  {
+"name": "Joo-Ho Park",
+"position": "Left-Back",
+"jerseyNumber": 3,
+"dateOfBirth": "1987-01-16",
+"nationality": "Korea, South",
+"contractUntil": "2018-06-30",
+"marketValue": "1,750,000 €"
+},
+  {
+"name": "Lukasz Piszczek",
+"position": "Right-Back",
+"jerseyNumber": 26,
+"dateOfBirth": "1985-06-03",
+"nationality": "Poland",
+"contractUntil": "2018-06-30",
+"marketValue": "6,000,000 €"
+},
+  {
+"name": "Erik Durm",
+"position": "Right-Back",
+"jerseyNumber": 37,
+"dateOfBirth": "1992-05-12",
+"nationality": "Germany",
+"contractUntil": "2019-06-30",
+"marketValue": "5,000,000 €"
+},
+  {
+"name": "Sven Bender",
+"position": "Centre Back",
+"jerseyNumber": 6,
+"dateOfBirth": "1989-04-27",
+"nationality": "Germany",
+"contractUntil": "2021-06-30",
+"marketValue": "11,000,000 €"
+},
+  {
+"name": "Julian Weigl",
+"position": "Defensive Midfield",
+"jerseyNumber": 33,
+"dateOfBirth": "1995-09-08",
+"nationality": "Germany",
+"contractUntil": "2019-06-30",
+"marketValue": "18,000,000 €"
+},
+  {
+"name": "Gonzalo Castro",
+"position": "Central Midfield",
+"jerseyNumber": 27,
+"dateOfBirth": "1987-06-11",
+"nationality": "Germany",
+"contractUntil": "2019-06-30",
+"marketValue": "15,000,000 €"
+},
+  {
+"name": "Nuri Sahin",
+"position": "Central Midfield",
+"jerseyNumber": 8,
+"dateOfBirth": "1988-09-05",
+"nationality": "Turkey",
+"contractUntil": "2018-06-30",
+"marketValue": "6,500,000 €"
+},
+  {
+"name": "Shinji Kagawa",
+"position": "Attacking Midfield",
+"jerseyNumber": 23,
+"dateOfBirth": "1989-03-17",
+"nationality": "Japan",
+"contractUntil": "2018-06-30",
+"marketValue": "16,000,000 €"
+},
+  {
+"name": "Marco Reus",
+"position": "Left Wing",
+"jerseyNumber": 11,
+"dateOfBirth": "1989-05-31",
+"nationality": "Germany",
+"contractUntil": "2019-06-30",
+"marketValue": "40,000,000 €"
+},
+  {
+"name": "Pierre-Emerick Aubameyang",
+"position": "Centre Forward",
+"jerseyNumber": 17,
+"dateOfBirth": "1989-06-18",
+"nationality": "Gabon",
+"contractUntil": "2020-06-30",
+"marketValue": "45,000,000 €"
+},
+  {
+"name": "Adrián Ramos",
+"position": "Centre Forward",
+"jerseyNumber": 20,
+"dateOfBirth": "1986-01-22",
+"nationality": "Colombia",
+"contractUntil": "2018-06-30",
+"marketValue": "6,000,000 €"
+},
+  {
+"name": "Christian Pulisic",
+"position": "Attacking Midfield",
+"jerseyNumber": 22,
+"dateOfBirth": "1998-09-18",
+"nationality": "United States",
+"contractUntil": "2018-06-30",
+"marketValue": "5,000,000 €"
+},
+  {
+"name": "Felix Passlack",
+"position": "Right-Back",
+"jerseyNumber": 30,
+"dateOfBirth": "1998-05-29",
+"nationality": "Germany",
+"contractUntil": "2018-06-30",
+"marketValue": "1,000,000 €"
+},
+  {
+"name": "Ousmane Dembélé",
+"position": "Right Wing",
+"jerseyNumber": 7,
+"dateOfBirth": "1997-05-15",
+"nationality": "France",
+"contractUntil": "2021-06-30",
+"marketValue": "14,000,000 €"
+},
+  {
+"name": "Mikel Merino",
+"position": "Central Midfield",
+"jerseyNumber": 24,
+"dateOfBirth": "1996-06-22",
+"nationality": "Spain",
+"contractUntil": "2021-06-30",
+"marketValue": "3,000,000 €"
+},
+  {
+"name": "Dzenis Burnic",
+"position": "Central Midfield",
+"jerseyNumber": 32,
+"dateOfBirth": "1998-05-22",
+"nationality": "Germany",
+"contractUntil": "2018-06-30",
+"marketValue": "100,000 €"
+},
+  {
+"name": "Emre Mor",
+"position": "Right Wing",
+"jerseyNumber": 9,
+"dateOfBirth": "1997-07-24",
+"nationality": "Turkey",
+"contractUntil": "2021-06-30",
+"marketValue": "5,000,000 €"
+}
+]
+}
