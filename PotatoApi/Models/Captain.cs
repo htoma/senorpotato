@@ -8,7 +8,6 @@ namespace PotatoApi.Models
         {
             Self,
             OpponentPlayer,
-            OwnTeam,
             OpponentTeam
         }
 

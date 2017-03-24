@@ -1,0 +1,6 @@
+Affected,Skill,Value
+Self,Defence,2
+OwnTeam,Attack,3
+OpponnentTeam,Defence,-2
+Self,Penalty,1
+OpponentTeam,Stamina,-4

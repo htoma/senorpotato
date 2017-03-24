@@ -8,20 +8,16 @@ namespace PotatoApi.Generators
 {
     public static class PlayerGenerator
     {
-        public static IEnumerable<Player> Generate(int count, Random rand, IList<PlayerEntity> players)
+        public static IEnumerable<Player> Generate(Random rand, IList<PlayerEntity> players)
         {
-            return Enumerable.Range(1, count).Select(x =>
+            return players.Select(x =>
             {
-                var player = players.Count > 0
-                    ? players[rand.Next(0, players.Count - 1)]
-                    : new PlayerEntity("Senor Potato", string.Empty, "Singapore");
-
                 var skills = GenerateSkills(rand);
                 return new Player
                 {
-                    Name = player.Name,
-                    Description = player.Description,
-                    Country = player.Country,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Country = x.Country,
                     Skills = skills,
                     Overall = skills.Attack + skills.Defence + skills.Penalty
                 };

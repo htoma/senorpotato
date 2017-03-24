@@ -14,16 +14,16 @@ namespace PotatoApi.Controllers
 
         public IEnumerable<Player> Get()
         {
-            return GetPlayers(1);
+            return GetPlayers();
         }
 
         [HttpGet]
         [Route("players")]
-        public IEnumerable<Player> GetPlayers(int count)
+        public IEnumerable<Player> GetPlayers()
         {            
             var players = TableManager.Get<PlayerEntity>(PlayersTable).ToList();
 
-            return PlayerGenerator.Generate(count, Seeder.Random(), players);
+            return PlayerGenerator.Generate(Seeder.Random(), players);
         }
 
         [HttpPut]
