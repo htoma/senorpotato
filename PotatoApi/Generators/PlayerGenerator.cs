@@ -20,7 +20,7 @@ namespace PotatoApi.Generators
                 return new Player
                 {
                     Name = player.Name,
-                    Description = "Green tea sencha",
+                    Description = player.Description,
                     Country = player.Country,
                     Skills = skills,
                     Overall = skills.Attack + skills.Defence + skills.Penalty

@@ -12,21 +12,31 @@ namespace PotatoApi.Controllers
     {
         private const string PlayersTable = "players";
 
-        [HttpGet]
-        public IEnumerable<Player> Get(int count = 1)
+        public IEnumerable<Player> Get()
         {
+            return GetPlayers(1);
+        }
+
+        [HttpGet]
+        [Route("players")]
+        public IEnumerable<Player> GetPlayers(int count)
+        {            
             var players = TableManager.Get<PlayerEntity>(PlayersTable).ToList();
 
             return PlayerGenerator.Generate(count, Seeder.Random(), players);
         }
 
         [HttpPut]
-        public bool Insert()
+        [Route("players")]
+        public bool InsertPlayers()
         {
             try
             {
-                var players =
-                    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
+                //note(htoma): API players from FootballData
+                //var players =
+                //    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
+
+                var players = CsvPlayers.getPlayers().Select(x => new PlayerEntity(x.Item1, x.Item2, x.Item3)).ToList();
                 TableManager.Insert(PlayersTable, players);
                 return true;
             }
@@ -38,7 +48,7 @@ namespace PotatoApi.Controllers
 
         [Route("players")]
         [HttpDelete]
-        public bool Delete()
+        public bool DeletePlayers()
         {
             try
             {
