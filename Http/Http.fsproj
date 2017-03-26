@@ -58,7 +58,9 @@
     <None Include="players.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="captains.csv" />
     <Compile Include="CsvPlayers.fs" />
+    <Compile Include="CsvCaptains.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,6 @@
 ﻿module CsvPlayers
 
 open FSharp.Data
-open FSharp.Data.CsvExtensions
 
 type PlayerData = CsvProvider<"players.csv">
 

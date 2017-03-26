@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PotatoApi.Models
+﻿namespace PotatoApi.Models
 {
     public class Captain
     {

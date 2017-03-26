@@ -9,16 +9,17 @@ namespace Azure
         {
         }
 
-        public CaptainEntity(string skill, string affected, int value)
+        public CaptainEntity(string affected, string skill, int value)
         {
-            PartitionKey = skill;
             RowKey = Guid.NewGuid().ToString();
             Affected = affected;
+            PartitionKey = skill;
             Value = value;
         }
 
-        public string Skill => PartitionKey;
+        public string Id => RowKey;
         public string Affected { get; set; }
+        public string Skill => PartitionKey;        
         public int Value { get; set; }
     }
 }
