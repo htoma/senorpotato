@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Azure;
-using PotatoApi.Generators;
 using PotatoApi.Models;
 
 namespace PotatoApi.Controllers
@@ -23,18 +22,23 @@ namespace PotatoApi.Controllers
         {            
             var captains = TableManager.Get<CaptainEntity>(CaptainsTable).ToList();
 
-            return captains.Select(x => new Captain());
+            return captains.Select(x => new Captain
+            {
+                Affected = (Captain.EAffected)Enum.Parse(typeof(Captain.EAffected), x.Affected),
+                Skill = (ESkill)Enum.Parse(typeof(ESkill), x.Skill),
+                Value = x.Value
+            });
         }
 
         [HttpPut]
-        [Route("players")]
-        public bool InsertPlayers()
+        [Route("captains")]
+        public bool InsertCaptains()
         {
             try
             {
-                var players =
+                var captains =
                     CsvCaptains.getCaptains().Select(x => new CaptainEntity(x.Item1, x.Item2, x.Item3)).ToList();
-                TableManager.Insert(CaptainsTable, players);
+                TableManager.Insert(CaptainsTable, captains);
                 return true;
             }
             catch (Exception)
@@ -45,7 +49,7 @@ namespace PotatoApi.Controllers
 
         [Route("captains")]
         [HttpDelete]
-        public bool DeletePlayers()
+        public bool DeleteCaptains()
         {
             try
             {
