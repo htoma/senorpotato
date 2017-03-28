@@ -140,7 +140,6 @@
     <Compile Include="Controllers\AzureController.cs" />
     <Compile Include="Controllers\CaptainController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
-    <Compile Include="Generators\CaptainGenerator.cs" />
     <Compile Include="Generators\PlayerGenerator.cs" />
     <Compile Include="Generators\Seeder.cs" />
     <Compile Include="Global.asax.cs">

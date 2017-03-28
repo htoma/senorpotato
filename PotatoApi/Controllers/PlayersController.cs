@@ -9,9 +9,7 @@ using PotatoApi.Models;
 namespace PotatoApi.Controllers
 {
     public class PlayersController : ApiController
-    {
-        private const string PlayersTable = "players";
-
+    {        
         public IEnumerable<Player> Get()
         {
             return GetPlayers();
@@ -21,9 +19,10 @@ namespace PotatoApi.Controllers
         [Route("players")]
         public IEnumerable<Player> GetPlayers()
         {            
-            var players = TableManager.Get<PlayerEntity>(PlayersTable).ToList();
+            var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
+            var captains =  TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return PlayerGenerator.Generate(Seeder.Random(), players);
+            return PlayerGenerator.Generate(Seeder.Random(), players, captains);
         }
 
         [HttpPut]
@@ -37,7 +36,7 @@ namespace PotatoApi.Controllers
                 //    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
 
                 var players = CsvPlayers.getPlayers().Select(x => new PlayerEntity(x.Item1, x.Item2, x.Item3)).ToList();
-                TableManager.Insert(PlayersTable, players);
+                TableManager.Insert(TableData.PlayersTable, players);
                 return true;
             }
             catch (Exception)
@@ -52,7 +51,7 @@ namespace PotatoApi.Controllers
         {
             try
             {
-                TableManager.DeleteTable(PlayersTable);
+                TableManager.DeleteTable(TableData.PlayersTable);
                 return true;
             }
             catch (Exception)

@@ -8,7 +8,7 @@ namespace PotatoApi.Generators
 {
     public static class PlayerGenerator
     {
-        public static IEnumerable<Player> Generate(Random rand, IList<PlayerEntity> players)
+        public static IEnumerable<Player> Generate(Random rand, IList<PlayerEntity> players, IList<CaptainEntity> captains)
         {
             return players.Select(x =>
             {
@@ -19,7 +19,8 @@ namespace PotatoApi.Generators
                     Description = x.Description,
                     Country = x.Country,
                     Skills = skills,
-                    Overall = skills.Attack + skills.Defence + skills.Penalty
+                    Overall = skills.Attack + skills.Defence + skills.Penalty,
+                    Captain = GenerateCaptain(rand, captains)
                 };
             }).ToList();
         }
@@ -38,6 +39,15 @@ namespace PotatoApi.Generators
         private static int GenerateSkill(Random rand)
         {
             return rand.Next(1, 5);
+        }
+
+        private static Captain GenerateCaptain(Random rand, IList<CaptainEntity> captains)
+        {
+            if (captains.Count == 0)
+            {
+                throw new ArgumentException("Need at least one captain");
+            }
+            return Captain.FromEntity(captains[rand.Next(0, captains.Count - 1)]);
         }
     }
 }

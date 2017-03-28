@@ -7,5 +7,6 @@
         public string Country { get; set; }
         public int Overall { get; set; }
         public Skills Skills { get; set; }
+        public Captain Captain { get; set; }
     }
 }

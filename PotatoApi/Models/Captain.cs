@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Azure;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace PotatoApi.Models
@@ -19,5 +21,15 @@ namespace PotatoApi.Models
 
         public ESkill Skill { get; set; }
         public int Value { get; set; }
+
+        public static Captain FromEntity(CaptainEntity entity)
+        {
+            return new Captain
+            {
+                Affected = (EAffected) Enum.Parse(typeof(EAffected), entity.Affected),
+                Skill = (ESkill) Enum.Parse(typeof(ESkill), entity.Skill),
+                Value = entity.Value
+            };
+        }
     }
 }

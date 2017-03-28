@@ -8,9 +8,7 @@ using PotatoApi.Models;
 namespace PotatoApi.Controllers
 {
     public class CaptainController : ApiController
-    {
-        private const string CaptainsTable = "captains";
-
+    {        
         public IEnumerable<Captain> Get()
         {
             return GetCaptains();
@@ -20,14 +18,9 @@ namespace PotatoApi.Controllers
         [Route("captains")]
         public IEnumerable<Captain> GetCaptains()
         {            
-            var captains = TableManager.Get<CaptainEntity>(CaptainsTable).ToList();
+            var captains = TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return captains.Select(x => new Captain
-            {
-                Affected = (Captain.EAffected)Enum.Parse(typeof(Captain.EAffected), x.Affected),
-                Skill = (ESkill)Enum.Parse(typeof(ESkill), x.Skill),
-                Value = x.Value
-            });
+            return captains.Select(Captain.FromEntity);
         }
 
         [HttpPut]
@@ -38,7 +31,7 @@ namespace PotatoApi.Controllers
             {
                 var captains =
                     CsvCaptains.getCaptains().Select(x => new CaptainEntity(x.Item1, x.Item2, x.Item3)).ToList();
-                TableManager.Insert(CaptainsTable, captains);
+                TableManager.Insert(TableData.CaptainsTable, captains);
                 return true;
             }
             catch (Exception)
@@ -53,7 +46,7 @@ namespace PotatoApi.Controllers
         {
             try
             {
-                TableManager.DeleteTable(CaptainsTable);
+                TableManager.DeleteTable(TableData.CaptainsTable);
                 return true;
             }
             catch (Exception)

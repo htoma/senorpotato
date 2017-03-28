@@ -75,6 +75,7 @@
     <Compile Include="CaptainEntity.cs" />
     <Compile Include="PlayerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableData.cs" />
     <Compile Include="TableManager.cs" />
   </ItemGroup>
   <ItemGroup>
