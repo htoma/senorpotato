@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Azure;
-using PotatoApi.Models;
+using Game;
+using Game.Generators;
 
 namespace PotatoApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace PotatoApi.Controllers
         {            
             var captains = TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return captains.Select(Captain.FromEntity);
+            return captains.Select(PlayerGenerator.FromEntity);
         }
 
         [HttpPut]

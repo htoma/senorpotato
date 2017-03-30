@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Azure;
-using PotatoApi.Generators;
-using PotatoApi.Models;
+using Game;
+using Game.Generators;
+using Game.Utils;
 
 namespace PotatoApi.Controllers
 {

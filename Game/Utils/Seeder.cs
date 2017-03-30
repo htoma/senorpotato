@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PotatoApi.Generators
+namespace Game.Utils
 {
     public static class Seeder
     {

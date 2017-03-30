@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PotatoApi.Models
+﻿namespace Game
 {
     public enum ESkill
     {

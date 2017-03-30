@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WebActivatorEx">
@@ -137,18 +138,12 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AzureController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\CaptainController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
-    <Compile Include="Generators\PlayerGenerator.cs" />
-    <Compile Include="Generators\Seeder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Captain.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\ESkill.cs" />
-    <Compile Include="Models\Skills.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +165,10 @@
     <ProjectReference Include="..\Azure\Azure.csproj">
       <Project>{3BDF5F0F-CA88-487D-86DE-CC8106887AB0}</Project>
       <Name>Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Game\Game.csproj">
+      <Project>{063A5F2B-DC20-4EA0-96A8-5FD608403F13}</Project>
+      <Name>Game</Name>
     </ProjectReference>
     <ProjectReference Include="..\Http\Http.fsproj">
       <Project>{6EBAB7A0-BFB0-4841-BB99-0295EE5122E8}</Project>

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Azure;
-using PotatoApi.Models;
 
-namespace PotatoApi.Generators
+namespace Game.Generators
 {
     public static class PlayerGenerator
     {
@@ -23,6 +22,16 @@ namespace PotatoApi.Generators
                     Captain = GenerateCaptain(rand, captains)
                 };
             }).ToList();
+        }
+
+        public static Captain FromEntity(CaptainEntity entity)
+        {
+            return new Captain
+            {
+                Affected = (Captain.EAffected)Enum.Parse(typeof(Captain.EAffected), entity.Affected),
+                Skill = (ESkill)Enum.Parse(typeof(ESkill), entity.Skill),
+                Value = entity.Value
+            };
         }
 
         private static Skills GenerateSkills(Random rand)
@@ -47,7 +56,7 @@ namespace PotatoApi.Generators
             {
                 throw new ArgumentException("Need at least one captain");
             }
-            return Captain.FromEntity(captains[rand.Next(0, captains.Count - 1)]);
+            return FromEntity(captains[rand.Next(0, captains.Count - 1)]);
         }
     }
 }

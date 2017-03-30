@@ -1,4 +1,4 @@
-﻿namespace PotatoApi.Models
+﻿namespace Game
 {
     public class Player
     {
@@ -8,5 +8,6 @@
         public int Overall { get; set; }
         public Skills Skills { get; set; }
         public Captain Captain { get; set; }
+        public bool IsCaptain { get; set; }
     }
 }
