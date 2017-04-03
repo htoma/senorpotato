@@ -25,7 +25,25 @@ namespace Game
 
             var gameId = BlobManager.GetAndIncrementGameId();
 
-            return new Game(gameId, shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
+            var game = new Game(gameId, shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
+            Save(game);
+
+            return game;
+        }
+
+        public static Game Load(int id)
+        {
+            return BlobManager.Get<Game>(GetBlobName(id));
+        }
+
+        private static void Save(Game game)
+        {
+            BlobManager.Upload(GetBlobName(game.Id), game);
+        }
+
+        private static string GetBlobName(int id)
+        {
+            return $"game_{id}";
         }
     }
 }

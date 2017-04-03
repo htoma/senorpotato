@@ -7,6 +7,10 @@ namespace Game
 {
     public class Game
     {
+        public Game()
+        {
+        }
+
         public Game(int id, IEnumerable<Player> attackers, IEnumerable<Player> defenders)
         {
             Id = id;
@@ -18,7 +22,7 @@ namespace Game
             SecondPlayers = defenders.ToList();
         }
 
-        public int Id { get; }
+        public int Id { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public EGameStatus GameStatus { get; set; }

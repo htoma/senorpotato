@@ -5,6 +5,14 @@ namespace PotatoApi.Controllers
 {
     public class GameController : ApiController
     {
+        [Route("game/{id}")]
+        [HttpGet]
+        public Game.Game Get(int id)
+        {
+            var game = GameManager.Load(id);
+            return game;
+        }
+
         [Route("game")]
         [HttpPost]
         public Game.Game NewGame()
