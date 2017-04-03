@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlobManager.cs" />
     <Compile Include="CaptainEntity.cs" />
     <Compile Include="PlayerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

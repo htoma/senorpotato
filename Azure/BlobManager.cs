@@ -1,0 +1,78 @@
+﻿using System.IO;
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
+
+namespace Azure
+{
+    public class BlobManager
+    {
+        private const string BlobContainer = "games";
+        private const string GameIdBlock = "gameId";
+
+        private static readonly object GameIdLock = new object();
+
+        public static T Get<T>(string blobName)
+        {
+            var block = GetBlock(blobName);
+            return Get<T>(block);
+        }        
+
+        public static void Upload<T>(string blobName, T value)
+        {
+            var block = GetBlock(blobName);
+            Upload(value, block);
+        }        
+
+        public static int GetAndIncrementGameId()
+        {
+            lock (GameIdLock)
+            {
+                var block = GetBlock(GameIdBlock);
+                int value = 1;
+                if (block.Exists())
+                {
+                    value = Get<int>(block) + 1;
+                }
+
+                Upload(value, block);
+                return value;
+            }            
+        }
+
+        private static CloudBlockBlob GetBlock(string blockName)
+        {
+            var storageAccount =
+                CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference(BlobContainer);
+            container.CreateIfNotExists();
+            return container.GetBlockBlobReference(blockName);
+        }
+
+        private static T Get<T>(CloudBlockBlob block)
+        {
+            using (var stream = new MemoryStream())
+            using (var reader = new StreamReader(stream))
+            {
+                block.DownloadToStream(stream);
+                stream.Position = 0;
+                var content = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<T>(content);
+            }
+        }
+
+        private static void Upload<T>(T value, CloudBlockBlob block)
+        {
+            using (var stream = new MemoryStream())
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.Write(JsonConvert.SerializeObject(value));
+                writer.Flush();
+                stream.Position = 0;
+                block.UploadFromStream(stream);
+            }
+        }
+    }
+}

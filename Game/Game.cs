@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -8,9 +7,9 @@ namespace Game
 {
     public class Game
     {
-        public Game(IEnumerable<Player> attackers, IEnumerable<Player> defenders)
+        public Game(int id, IEnumerable<Player> attackers, IEnumerable<Player> defenders)
         {
-            GameId = Guid.NewGuid();
+            Id = id;
             GameStatus = EGameStatus.NotStarted;
             Turn = ETurn.First;
             Score = new Score();
@@ -19,7 +18,7 @@ namespace Game
             SecondPlayers = defenders.ToList();
         }
 
-        public Guid GameId { get; }
+        public int Id { get; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public EGameStatus GameStatus { get; set; }

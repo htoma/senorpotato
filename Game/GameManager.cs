@@ -23,7 +23,9 @@ namespace Game
             var allPlayers = PlayerGenerator.Generate(Seeder.Random(), players, captains);
             var shuffled = RandomSelectors.Shuffle(Seeder.Random(), allPlayers).ToList();
 
-            return new Game(shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count-TeamPlayerCount));
+            var gameId = BlobManager.GetAndIncrementGameId();
+
+            return new Game(gameId, shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
         }
     }
 }
