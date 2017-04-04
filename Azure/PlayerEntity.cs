@@ -8,15 +8,19 @@ namespace Azure
         {
         }
 
-        public PlayerEntity(string name, string description, string country)
+        public PlayerEntity(int id, string name, string description, string country)
         {
+            RowKey = id.ToString();
             PartitionKey = country;
-            RowKey = name;
+            Name = name;
             Description = description;
         }
 
-        public string Name => RowKey;
+        public string Id => RowKey;
+
         public string Country => PartitionKey;
+
+        public string Name { get; set; }
 
         public string Description { get; set; }
     }

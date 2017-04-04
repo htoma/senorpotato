@@ -24,14 +24,16 @@ namespace PotatoApi.Controllers
             return captains.Select(PlayerGenerator.FromEntity);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("captains")]
         public bool InsertCaptains()
         {
             try
             {
                 var captains =
-                    CsvCaptains.getCaptains().Select(x => new CaptainEntity(x.Item1, x.Item2, x.Item3)).ToList();
+                    CsvCaptains.getCaptains()
+                        .Select(x => new CaptainEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
+                        .ToList();
                 TableManager.Insert(TableData.CaptainsTable, captains);
                 return true;
             }

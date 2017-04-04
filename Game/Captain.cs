@@ -12,6 +12,8 @@ namespace Game
             OpponentTeam
         }
 
+        public int Id { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public EAffected Affected { get; set; }
 

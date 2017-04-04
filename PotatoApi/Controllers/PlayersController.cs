@@ -26,7 +26,7 @@ namespace PotatoApi.Controllers
             return PlayerGenerator.Generate(Seeder.Random(), players, captains);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("players")]
         public bool InsertPlayers()
         {
@@ -36,7 +36,10 @@ namespace PotatoApi.Controllers
                 //var players =
                 //    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
 
-                var players = CsvPlayers.getPlayers().Select(x => new PlayerEntity(x.Item1, x.Item2, x.Item3)).ToList();
+                var players =
+                    CsvPlayers.getPlayers()
+                        .Select(x => new PlayerEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
+                        .ToList();
                 TableManager.Insert(TableData.PlayersTable, players);
                 return true;
             }

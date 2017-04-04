@@ -14,6 +14,7 @@ namespace Game.Generators
                 var skills = GenerateSkills(rand);
                 return new Player
                 {
+                    Id = int.Parse(x.Id),
                     Name = x.Name,
                     Description = x.Description,
                     Country = x.Country,
@@ -28,6 +29,7 @@ namespace Game.Generators
         {
             return new Captain
             {
+                Id = int.Parse(entity.Id),
                 Affected = (Captain.EAffected)Enum.Parse(typeof(Captain.EAffected), entity.Affected),
                 Skill = (ESkill)Enum.Parse(typeof(ESkill), entity.Skill),
                 Value = entity.Value

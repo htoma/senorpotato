@@ -25,7 +25,7 @@ namespace Game
             var allPlayers = PlayerGenerator.Generate(Seeder.Random(), players, captains);
             var shuffled = RandomSelectors.Shuffle(Seeder.Random(), allPlayers).ToList();
 
-            var gameId = BlobManager.GetAndIncrementGameId();
+            var gameId = BlobManager.GetNextId();
 
             var game = new Game(gameId, shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
             Save(game);

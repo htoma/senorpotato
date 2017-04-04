@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 
 namespace Azure
 {
@@ -9,9 +8,9 @@ namespace Azure
         {
         }
 
-        public CaptainEntity(string affected, string skill, int value)
+        public CaptainEntity(int id, string affected, string skill, int value)
         {
-            RowKey = Guid.NewGuid().ToString();
+            RowKey = id.ToString();
             Affected = affected;
             PartitionKey = skill;
             Value = value;

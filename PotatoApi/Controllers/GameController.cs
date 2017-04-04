@@ -5,7 +5,7 @@ namespace PotatoApi.Controllers
 {
     public class GameController : ApiController
     {
-        [Route("game/{id}")]
+        [Route("games/{id}")]
         [HttpGet]
         public Game.Game Get(int id)
         {
@@ -13,7 +13,7 @@ namespace PotatoApi.Controllers
             return game;
         }
 
-        [Route("game")]
+        [Route("games")]
         [HttpPost]
         public Game.Game NewGame()
         {
@@ -22,20 +22,31 @@ namespace PotatoApi.Controllers
             return game;
         }
 
-        [Route("game/{id}")]
+        [Route("games/{id}")]
         [HttpDelete]
         public string DeleteGame(int id)
         {
             GameManager.DeleteGame(id);
+
+            //(note(htoma): return HTTP code
             return "OK";
         }
 
-        [Route("game")]
+        [Route("games")]
         [HttpDelete]
         public string DeleteGames()
         {
             GameManager.Delete();
+
+            //(note(htoma): return HTTP code
             return "OK";
+        }
+
+        [Route("games/{gameId}/{turn}/captain/{playerId}")]
+        [HttpPut]
+        public void SetCaptain(int gameId, ETurn turn, int playerId)
+        {
+            //(note(htoma): return HTTP code
         }
     }
 }

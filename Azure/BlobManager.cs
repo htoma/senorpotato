@@ -9,9 +9,9 @@ namespace Azure
     public class BlobManager
     {
         private const string BlobContainer = "games";
-        private const string GameIdBlock = "gameId";
+        private const string IdSequenceBlock = "id";
 
-        private static readonly object GameIdLock = new object();
+        private static readonly object IdSequenceLock = new object();
 
         public static T Get<T>(string blobName)
         {
@@ -25,11 +25,11 @@ namespace Azure
             Upload(value, block);
         }        
 
-        public static int GetAndIncrementGameId()
+        public static int GetNextId()
         {
-            lock (GameIdLock)
+            lock (IdSequenceLock)
             {
-                var block = GetBlock(GameIdBlock);
+                var block = GetBlock(IdSequenceBlock);
                 int value = 1;
                 if (block.Exists())
                 {
