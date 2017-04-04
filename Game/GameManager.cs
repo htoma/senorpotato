@@ -8,6 +8,8 @@ namespace Game
 {
     public class GameManager
     {
+        private const string GameBlockPrefix = "game_";
+
         private const int TeamPlayerCount = 5;
 
         public Game InitializeGame()
@@ -36,6 +38,16 @@ namespace Game
             return BlobManager.Get<Game>(GetBlobName(id));
         }
 
+        public static void DeleteGame(int id)
+        {
+            BlobManager.Delete(GetBlobName(id));
+        }
+
+        public static void Delete()
+        {
+            BlobManager.DeleteWithPrefix(GameBlockPrefix);
+        }
+
         private static void Save(Game game)
         {
             BlobManager.Upload(GetBlobName(game.Id), game);
@@ -43,7 +55,7 @@ namespace Game
 
         private static string GetBlobName(int id)
         {
-            return $"game_{id}";
-        }
+            return $"{GameBlockPrefix}{id}";
+        }        
     }
 }

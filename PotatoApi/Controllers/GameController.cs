@@ -21,5 +21,21 @@ namespace PotatoApi.Controllers
             var game = manager.InitializeGame();
             return game;
         }
+
+        [Route("game/{id}")]
+        [HttpDelete]
+        public string DeleteGame(int id)
+        {
+            GameManager.DeleteGame(id);
+            return "OK";
+        }
+
+        [Route("game")]
+        [HttpDelete]
+        public string DeleteGames()
+        {
+            GameManager.Delete();
+            return "OK";
+        }
     }
 }

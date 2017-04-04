@@ -41,14 +41,35 @@ namespace Azure
             }            
         }
 
-        private static CloudBlockBlob GetBlock(string blockName)
+        public static void Delete(string blobName)
+        {
+            var block = GetBlock(blobName);
+            block.DeleteIfExists();
+        }
+
+        public static void DeleteWithPrefix(string prefix)
+        {
+            var container = GetContainer();
+            foreach (var blobItem in container.ListBlobs(prefix))
+            {
+                var gameBlock = blobItem as CloudBlockBlob;
+                gameBlock?.DeleteIfExists();
+            }
+        }
+
+        private static CloudBlobContainer GetContainer()
         {
             var storageAccount =
                 CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
             var blobClient = storageAccount.CreateCloudBlobClient();
             var container = blobClient.GetContainerReference(BlobContainer);
             container.CreateIfNotExists();
-            return container.GetBlockBlobReference(blockName);
+            return container;
+        }
+
+        private static CloudBlockBlob GetBlock(string blockName)
+        {
+            return GetContainer().GetBlockBlobReference(blockName);
         }
 
         private static T Get<T>(CloudBlockBlob block)
@@ -73,6 +94,6 @@ namespace Azure
                 stream.Position = 0;
                 block.UploadFromStream(stream);
             }
-        }
+        }        
     }
 }
