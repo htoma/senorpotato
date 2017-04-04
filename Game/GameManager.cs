@@ -6,13 +6,13 @@ using Game.Utils;
 
 namespace Game
 {
-    public class GameManager
+    public static class GameManager
     {
         private const string GameBlockPrefix = "game_";
 
         private const int TeamPlayerCount = 5;
 
-        public Game InitializeGame()
+        public static Game CreateGame()
         {
             var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
             if (players.Count < TeamPlayerCount)
@@ -46,6 +46,27 @@ namespace Game
         public static void Delete()
         {
             BlobManager.DeleteWithPrefix(GameBlockPrefix);
+        }
+
+        public static bool SetCaptain(int gameId, ETurn turn, int playerId)
+        {
+            var game = Load(gameId);
+            if (game == null || game.GameStatus != EGameStatus.NotStarted)
+            {
+                return false;
+            }
+            var players = game.GetPlayers(turn);
+            var player = players.FirstOrDefault(x => x.Id == playerId);
+            if (player == null)
+            {
+                return false;
+            }
+            players.ForEach(x => x.IsCaptain = false);
+            player.IsCaptain = true;
+
+            Save(game);
+
+            return true;
         }
 
         private static void Save(Game game)

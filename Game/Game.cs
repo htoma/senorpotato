@@ -11,15 +11,15 @@ namespace Game
         {
         }
 
-        public Game(int id, IEnumerable<Player> attackers, IEnumerable<Player> defenders)
+        public Game(int id, IEnumerable<Player> firstPlayers, IEnumerable<Player> secondPlayers)
         {
             Id = id;
             GameStatus = EGameStatus.NotStarted;
             Turn = ETurn.First;
             Score = new Score();
 
-            FirstPlayers = attackers.ToList();
-            SecondPlayers = defenders.ToList();
+            FirstPlayers = firstPlayers.ToList();
+            SecondPlayers = secondPlayers.ToList();
         }
 
         public int Id { get; set; }
@@ -34,5 +34,19 @@ namespace Game
 
         public List<Player> FirstPlayers { get; set; }
         public List<Player> SecondPlayers { get; set; }
+
+        public List<Player> GetPlayers(ETurn turn)
+        {
+            if (turn == ETurn.First)
+            {
+                return FirstPlayers;
+            }
+            return SecondPlayers;
+        }
+
+        public List<Player> GetPlayersForCurrentTurn()
+        {
+            return GetPlayers(Turn);
+        }
     }
 }

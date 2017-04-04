@@ -17,9 +17,7 @@ namespace PotatoApi.Controllers
         [HttpPost]
         public Game.Game NewGame()
         {
-            var manager = new GameManager();
-            var game = manager.InitializeGame();
-            return game;
+            return GameManager.CreateGame();
         }
 
         [Route("games/{id}")]
@@ -44,9 +42,14 @@ namespace PotatoApi.Controllers
 
         [Route("games/{gameId}/{turn}/captain/{playerId}")]
         [HttpPut]
-        public void SetCaptain(int gameId, ETurn turn, int playerId)
+        public string SetCaptain(int gameId, ETurn turn, int playerId)
         {
-            //(note(htoma): return HTTP code
+            if (GameManager.SetCaptain(gameId, turn, playerId))
+            {
+                //(note(htoma): return HTTP code
+                return "OK";
+            }
+            return "NOK";
         }
     }
 }
