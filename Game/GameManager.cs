@@ -88,6 +88,10 @@ namespace Game
             }
 
             game.GetPlayer(turn).Confirmed = true;
+            if (game.GetPlayer(1 - turn).Confirmed)
+            {
+                game.GameStatus = EGameStatus.Running;
+            }
 
             Save(game);
 
