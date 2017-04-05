@@ -138,6 +138,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\CaptainController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />

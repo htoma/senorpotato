@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Web.Http;
 using Game;
 
 namespace PotatoApi.Controllers
@@ -7,61 +8,44 @@ namespace PotatoApi.Controllers
     {
         [Route("games/{id}")]
         [HttpGet]
-        public Game.Game Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            var game = GameManager.Load(id);
-            return game;
+            return this.Response(() => GameManager.Load(id), null);
         }
 
         [Route("games")]
         [HttpPost]
-        public Game.Game NewGame()
+        public HttpResponseMessage NewGame()
         {
-            return GameManager.CreateGame();
+            return this.Response(GameManager.CreateGame, null);
         }
 
         [Route("games/{id}")]
         [HttpDelete]
-        public string DeleteGame(int id)
+        public HttpResponseMessage DeleteGame(int id)
         {
-            GameManager.DeleteGame(id);
-
-            //(note(htoma): return HTTP code
-            return "OK";
+            return this.Response(() => GameManager.DeleteGame(id));
         }
 
         [Route("games")]
         [HttpDelete]
-        public string DeleteGames()
+        public HttpResponseMessage DeleteGames()
         {
-            GameManager.Delete();
-
-            //(note(htoma): return HTTP code
-            return "OK";
+            return this.Response(() => GameManager.Delete());
         }
 
         [Route("games/{gameId}/captain/{turn}/{playerId}")]
         [HttpPut]
-        public string SetCaptain(int gameId, ETurn turn, int playerId)
+        public HttpResponseMessage SetCaptain(int gameId, ETurn turn, int playerId)
         {
-            if (GameManager.SetCaptain(gameId, turn, playerId))
-            {
-                //(note(htoma): return HTTP code
-                return "OK";
-            }
-            return "NOK";
+            return this.Response(() => GameManager.SetCaptain(gameId, turn, playerId));
         }
 
         [Route("games/{gameId}/confirm/{turn}")]
         [HttpPut]
-        public string Confirm(int gameId, ETurn turn)
+        public HttpResponseMessage Confirm(int gameId, ETurn turn)
         {
-            if (GameManager.Confirm(gameId, turn))
-            {
-                //(note(htoma): return HTTP code
-                return "OK";
-            }
-            return "NOK";
+            return this.Response(() => GameManager.Confirm(gameId, turn));
         }
     }
 }

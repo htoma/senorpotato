@@ -1,67 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 using Azure;
-using Game;
 using Game.Generators;
 using Game.Utils;
 
 namespace PotatoApi.Controllers
 {
     public class PlayersController : ApiController
-    {        
-        public IEnumerable<Player> Get()
-        {
-            return GetPlayers();
-        }
-
-        [HttpGet]
-        [Route("players")]
-        public IEnumerable<Player> GetPlayers()
+    {
+        public HttpResponseMessage Get()
         {            
             var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
             var captains =  TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return PlayerGenerator.Generate(Seeder.Random(), players, captains);
+            return this.Response(() => PlayerGenerator.Generate(Seeder.Random(), players, captains), null);
         }
 
         [HttpPost]
         [Route("players")]
-        public bool InsertPlayers()
+        public HttpResponseMessage InsertPlayers()
         {
-            try
-            {
-                //note(htoma): API players from FootballData
-                //var players =
-                //    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
+            //note(htoma): API players from FootballData
+            //var players =
+            //    FootballData.getPlayers().Select(x => new PlayerEntity(x.Item1, string.Empty, x.Item2)).ToList();
 
-                var players =
-                    CsvPlayers.getPlayers()
-                        .Select(x => new PlayerEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
-                        .ToList();
-                TableManager.Insert(TableData.PlayersTable, players);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            var players =
+                CsvPlayers.getPlayers()
+                    .Select(x => new PlayerEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
+                    .ToList();
+            return this.Response(() => TableManager.Insert(TableData.PlayersTable, players));
         }
 
         [Route("players")]
         [HttpDelete]
-        public bool DeletePlayers()
+        public HttpResponseMessage DeletePlayers()
         {
-            try
-            {
-                TableManager.DeleteTable(TableData.PlayersTable);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return this.Response(() => TableManager.DeleteTable(TableData.PlayersTable));
         }        
     }
 }

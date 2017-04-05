@@ -1,61 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 using Azure;
-using Game;
 using Game.Generators;
 
 namespace PotatoApi.Controllers
 {
     public class CaptainController : ApiController
     {        
-        public IEnumerable<Captain> Get()
-        {
-            return GetCaptains();
-        }
-
         [HttpGet]
         [Route("captains")]
-        public IEnumerable<Captain> GetCaptains()
+        public HttpResponseMessage GetCaptains()
         {            
             var captains = TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return captains.Select(PlayerGenerator.FromEntity);
+            return this.Response(() => captains.Select(PlayerGenerator.FromEntity), null);
         }
 
         [HttpPost]
         [Route("captains")]
-        public bool InsertCaptains()
+        public HttpResponseMessage InsertCaptains()
         {
-            try
-            {
-                var captains =
-                    CsvCaptains.getCaptains()
-                        .Select(x => new CaptainEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
-                        .ToList();
-                TableManager.Insert(TableData.CaptainsTable, captains);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            var captains =
+                CsvCaptains.getCaptains()
+                    .Select(x => new CaptainEntity(BlobManager.GetNextId(), x.Item1, x.Item2, x.Item3))
+                    .ToList();
+            return this.Response(() => TableManager.Insert(TableData.CaptainsTable, captains));
         }
 
         [Route("captains")]
         [HttpDelete]
-        public bool DeleteCaptains()
+        public HttpResponseMessage DeleteCaptains()
         {
-            try
-            {
-                TableManager.DeleteTable(TableData.CaptainsTable);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return this.Response(() => TableManager.DeleteTable(TableData.CaptainsTable));
         }        
     }
 }
