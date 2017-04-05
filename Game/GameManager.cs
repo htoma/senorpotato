@@ -55,7 +55,7 @@ namespace Game
             {
                 return false;
             }
-            var players = game.GetPlayers(turn);
+            var players = game.GetPlayer(turn).Players;
             var player = players.FirstOrDefault(x => x.Id == playerId);
             if (player == null)
             {
@@ -77,6 +77,21 @@ namespace Game
         private static string GetBlobName(int id)
         {
             return $"{GameBlockPrefix}{id}";
-        }        
+        }
+
+        public static bool Confirm(int gameId, ETurn turn)
+        {
+            var game = Load(gameId);
+            if (game == null || game.GameStatus != EGameStatus.NotStarted)
+            {
+                return false;
+            }
+
+            game.GetPlayer(turn).Confirmed = true;
+
+            Save(game);
+
+            return true;
+        }
     }
 }

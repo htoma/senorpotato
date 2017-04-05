@@ -40,11 +40,23 @@ namespace PotatoApi.Controllers
             return "OK";
         }
 
-        [Route("games/{gameId}/{turn}/captain/{playerId}")]
+        [Route("games/{gameId}/captain/{turn}/{playerId}")]
         [HttpPut]
         public string SetCaptain(int gameId, ETurn turn, int playerId)
         {
             if (GameManager.SetCaptain(gameId, turn, playerId))
+            {
+                //(note(htoma): return HTTP code
+                return "OK";
+            }
+            return "NOK";
+        }
+
+        [Route("games/{gameId}/confirm/{turn}")]
+        [HttpPut]
+        public string Confirm(int gameId, ETurn turn)
+        {
+            if (GameManager.Confirm(gameId, turn))
             {
                 //(note(htoma): return HTTP code
                 return "OK";

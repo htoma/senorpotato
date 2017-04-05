@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -18,8 +17,8 @@ namespace Game
             Turn = ETurn.First;
             Score = new Score();
 
-            FirstPlayers = firstPlayers.ToList();
-            SecondPlayers = secondPlayers.ToList();
+            First = new GamePlayer(ETurn.First, firstPlayers);
+            Second = new GamePlayer(ETurn.Second, secondPlayers);
         }
 
         public int Id { get; set; }
@@ -32,21 +31,17 @@ namespace Game
 
         public Score Score { get; set; }
 
-        public List<Player> FirstPlayers { get; set; }
-        public List<Player> SecondPlayers { get; set; }
+        public GamePlayer First { get; set; }
 
-        public List<Player> GetPlayers(ETurn turn)
+        public GamePlayer Second { get; set; }
+
+        public GamePlayer GetPlayer(ETurn turn)
         {
             if (turn == ETurn.First)
             {
-                return FirstPlayers;
+                return First;
             }
-            return SecondPlayers;
-        }
-
-        public List<Player> GetPlayersForCurrentTurn()
-        {
-            return GetPlayers(Turn);
+            return Second;
         }
     }
 }
