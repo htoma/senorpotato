@@ -10,6 +10,12 @@ namespace Game
             Second = 0;
         }
 
+        public Score(int first, int second)
+        {
+            First = first;
+            Second = second;
+        }
+
         public void GoalScored(ETurn turn)
         {
             switch (turn)

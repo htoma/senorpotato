@@ -14,6 +14,9 @@ namespace Game
 
         private const int ActionCardsCount = 4;
 
+        private const int HalfTimeMark = 45;
+        private const int EndOfGameMark = 90;
+
         public static Game CreateGame()
         {
             var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
@@ -27,9 +30,7 @@ namespace Game
             var allPlayers = PlayerGenerator.Generate(players, captains);
             var shuffled = RandomSelectors.Shuffle(Seeder.Random(), allPlayers).ToList();
 
-            var gameId = BlobManager.GetNextId();
-
-            var game = new Game(gameId, shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
+            var game = new Game(shuffled.Take(TeamPlayerCount), shuffled.Skip(shuffled.Count - TeamPlayerCount));
             Save(game);
 
             return game;
@@ -105,19 +106,37 @@ namespace Game
                         AllocateActionCards(game);
                         break;
                     case EGameStatus.FirstHalf:
-                        //todo(htoma): update score, player stamina
-                        //todo(htoma): based on time or other condition, switch status to HalfTime
+                        EvaluateActionCard();
+                        if (game.Time >= HalfTimeMark)
+                        {
+                            game.GameStatus = EGameStatus.HalfTime;
+                        }
                         break;
                     case EGameStatus.HalfTime:
+                        game.Time = HalfTimeMark;
                         game.GameStatus = EGameStatus.SecondHalf;
                         break;
                     case EGameStatus.SecondHalf:
-                        //todo(htoma): update score, player stamina
-                        //todo(htoma): based on time or other condition, switch status to Ended and EndGame()
+                        EvaluateActionCard();
+                        if (game.Time >= EndOfGameMark)
+                        {
+                            game.GameStatus = EGameStatus.Ended;
+                            EndGame();
+                        }
                         break;
                     default:
                         throw new NotImplementedException();
             }
+        }
+
+        private static void EvaluateActionCard()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EndGame()
+        {
+            throw new NotImplementedException();
         }
 
         private static void AllocateActionCards(Game game)

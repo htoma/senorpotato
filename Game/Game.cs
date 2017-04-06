@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Azure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -10,9 +11,9 @@ namespace Game
         {
         }
 
-        public Game(int id, IEnumerable<Player> firstPlayers, IEnumerable<Player> secondPlayers)
+        public Game(IEnumerable<Player> firstPlayers, IEnumerable<Player> secondPlayers)
         {
-            Id = id;
+            Id = BlobManager.GetNextId();
             GameStatus = EGameStatus.NotStarted;
             Turn = ETurn.First;
             Score = new Score();
@@ -25,6 +26,8 @@ namespace Game
 
         [JsonConverter(typeof(StringEnumConverter))]
         public EGameStatus GameStatus { get; set; }
+
+        public int Time { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public ETurn Turn { get; set; }
