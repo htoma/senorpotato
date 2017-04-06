@@ -3,7 +3,9 @@ namespace Game
     public enum EGameStatus
     {
         NotStarted,
-        Running,
+        FirstHalf,
+        HalfTime,
+        SecondHalf,
         Ended
     }
 }
