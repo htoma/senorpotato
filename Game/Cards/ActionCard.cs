@@ -18,11 +18,9 @@ namespace Game.Cards
 
         public enum EActionCardType
         {
-            Penalty = 1,
-            FreeKick = 2,
-            Attack = 3,
-            CounterAttack = 4,
-            Max
+            Attack = 1,
+            Freekick = 2,
+            Penalty = 3
         }
 
         public int PlayerLimit { get; set; }
