@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Azure;
+using Game.Utils;
 
 namespace Game.Generators
 {
     public static class PlayerGenerator
     {
-        public static IEnumerable<Player> Generate(Random rand, IList<PlayerEntity> players, IList<CaptainEntity> captains)
+        public static IEnumerable<Player> Generate(IList<PlayerEntity> players, IList<CaptainEntity> captains)
         {
             return players.Select(x =>
             {
-                var skills = GenerateSkills(rand);
+                var skills = GenerateSkills(Seeder.Random());
                 return new Player
                 {
                     Id = int.Parse(x.Id),
@@ -20,7 +21,7 @@ namespace Game.Generators
                     Country = x.Country,
                     Skills = skills,
                     Overall = skills.Attack + skills.Defence + skills.Penalty,
-                    Captain = GenerateCaptain(rand, captains)
+                    Captain = GenerateCaptain(Seeder.Random(), captains)
                 };
             }).ToList();
         }

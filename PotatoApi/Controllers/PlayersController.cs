@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Web.Http;
 using Azure;
 using Game.Generators;
-using Game.Utils;
 
 namespace PotatoApi.Controllers
 {
@@ -14,7 +13,7 @@ namespace PotatoApi.Controllers
             var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
             var captains =  TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            return this.Response(() => PlayerGenerator.Generate(Seeder.Random(), players, captains), null);
+            return this.Response(() => PlayerGenerator.Generate(players, captains), null);
         }
 
         [HttpPost]

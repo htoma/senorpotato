@@ -12,6 +12,8 @@ namespace Game
 
         private const int TeamPlayerCount = 5;
 
+        private const int ActionCardsCount = 4;
+
         public static Game CreateGame()
         {
             var players = TableManager.Get<PlayerEntity>(TableData.PlayersTable).ToList();
@@ -22,7 +24,7 @@ namespace Game
 
             var captains = TableManager.Get<CaptainEntity>(TableData.CaptainsTable).ToList();
 
-            var allPlayers = PlayerGenerator.Generate(Seeder.Random(), players, captains);
+            var allPlayers = PlayerGenerator.Generate(players, captains);
             var shuffled = RandomSelectors.Shuffle(Seeder.Random(), allPlayers).ToList();
 
             var gameId = BlobManager.GetNextId();
@@ -81,6 +83,10 @@ namespace Game
             {
                 EvaluateRound(game);
             }
+            else
+            {
+                game.GetPlayer(turn).Confirmed = true;
+            }
 
             Save(game);
 
@@ -96,7 +102,7 @@ namespace Game
             {
                     case EGameStatus.NotStarted:
                         game.GameStatus = EGameStatus.FirstHalf;
-                        //todo(htoma): associate action cards to each player
+                        AllocateActionCards(game);
                         break;
                     case EGameStatus.FirstHalf:
                         //todo(htoma): update score, player stamina
@@ -112,6 +118,12 @@ namespace Game
                     default:
                         throw new NotImplementedException();
             }
+        }
+
+        private static void AllocateActionCards(Game game)
+        {
+            game.First.ActionCards = CardGenerator.GenerateActionCards(ActionCardsCount).ToList();
+            game.Second.ActionCards = CardGenerator.GenerateActionCards(ActionCardsCount).ToList();
         }
 
         private static void Save(Game game)
@@ -133,7 +145,7 @@ namespace Game
                 return false;
             }
 
-            return !new[] {EGameStatus.NotStarted, EGameStatus.HalfTime}.Contains(game.GameStatus);
+            return new[] {EGameStatus.NotStarted, EGameStatus.HalfTime}.Contains(game.GameStatus);
 
             //note(htoma): changing captain should be allowed during substitution?
         }

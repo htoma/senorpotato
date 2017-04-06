@@ -17,8 +17,8 @@ namespace Game
             Turn = ETurn.First;
             Score = new Score();
 
-            First = new GamePlayer(ETurn.First, firstPlayers);
-            Second = new GamePlayer(ETurn.Second, secondPlayers);
+            First = new GamePlayer(firstPlayers);
+            Second = new GamePlayer(secondPlayers);
         }
 
         public int Id { get; set; }

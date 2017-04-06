@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using Game.Cards;
 
 namespace Game
 {
@@ -12,17 +11,15 @@ namespace Game
             
         }
 
-        public GamePlayer(ETurn turn, IEnumerable<Player> players)
+        public GamePlayer(IEnumerable<Player> players)
         {
-            Turn = turn;
             Players = players.ToList();            
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ETurn Turn { get; set; }
+        public bool Confirmed { get; set; }
 
         public List<Player> Players { get; set; }
 
-        public bool Confirmed { get; set; }
+        public List<ActionCard> ActionCards { get; set; }
     }
 }
