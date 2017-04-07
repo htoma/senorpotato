@@ -192,6 +192,7 @@ namespace Game
 
         private static void EvaluateActionCard()
         {
+            //todo(htoma): mark action card as played
             //todo(htoma): switch game turn after evaluating a card
 
             throw new NotImplementedException();
