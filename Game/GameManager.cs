@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Azure;
+using Game.Cards;
 using Game.Generators;
 using Game.Utils;
 
@@ -94,6 +95,60 @@ namespace Game
             return true;
         }
 
+        public static bool AddPlayer(int gameId, ETurn turn, int actionCardId, int playerId)
+        {
+            var game = Load(gameId);
+            if (game == null)
+            {
+                return false;
+            }
+
+            if (!new[] { EGameStatus.FirstHalf, EGameStatus.SecondHalf }.Contains(game.GameStatus))
+            {
+                //playing?
+                return false;
+            }
+
+            var gamePlayer = game.GetPlayer(game.Turn);
+            var card = GetCurrentActionCard(gamePlayer);
+            if (card == null || card.Id != actionCardId)
+            {
+                //wrong card
+                return false;
+            }
+
+            //get attackers or defenders, depending on the turn. If game turn is identical to turn, then attackers, otherwise defenders
+            var cardPlayers = turn == game.Turn ? card.Attackers : card.Defenders;
+            if (cardPlayers.Count == card.PlayerLimit)
+            {
+                //player limit reach
+                return false;
+            }
+
+            if (cardPlayers.Any(x => x.Id == playerId))
+            {
+                //player already selected on the card
+                return false;
+            }
+
+            //check against remaining players in team if there's one with the id and left stamina
+            var firstOrSecond = turn == ETurn.First ? game.First : game.Second;
+            var playerSelected = firstOrSecond.Players.FirstOrDefault(x => x.Id == playerId && x.Skills.Stamina > 0);
+            if (playerSelected == null)
+            {
+                //inexistent or too tired
+                return false;
+            }
+
+            cardPlayers.Add(playerSelected);
+            return true;
+        }
+
+        public static bool RemovePlayer(int gameId, ETurn turn, int actionCardId, int playerId)
+        {
+            throw new NotImplementedException();
+        }
+
         private static void EvaluateRound(Game game)
         {
             //set uncofirmed for each player, the turn or phase changes
@@ -129,8 +184,16 @@ namespace Game
             }
         }
 
+        private static ActionCard GetCurrentActionCard(GamePlayer player)
+        {            
+            var card = player.ActionCards.FirstOrDefault(x => !x.Played && x.Id == player.CurrentCard);
+            return card;
+        }
+
         private static void EvaluateActionCard()
         {
+            //todo(htoma): switch game turn after evaluating a card
+
             throw new NotImplementedException();
         }
 
@@ -167,6 +230,6 @@ namespace Game
             return new[] {EGameStatus.NotStarted, EGameStatus.HalfTime}.Contains(game.GameStatus);
 
             //note(htoma): changing captain should be allowed during substitution?
-        }
+        }        
     }
 }

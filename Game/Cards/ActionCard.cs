@@ -1,6 +1,5 @@
-﻿using Azure;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System.Collections.Generic;
+using Azure;
 
 namespace Game.Cards
 {
@@ -33,13 +32,10 @@ namespace Game.Cards
 
         public int PlayerLimit { get; set; }
 
-        public GamePlayer First { get; set; }
+        public List<Player> Attackers { get; set; }
 
-        public GamePlayer Second { get; set; }
+        public List<Player> Defenders { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ETurn Owner { get; set; }
-        
         public Score Score { get; set; }
     }
 }

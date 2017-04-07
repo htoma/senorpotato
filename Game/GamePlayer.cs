@@ -21,5 +21,7 @@ namespace Game
         public List<Player> Players { get; set; }
 
         public List<ActionCard> ActionCards { get; set; }
+
+        public int CurrentCard { get; set; }
     }
 }

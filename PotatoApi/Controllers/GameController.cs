@@ -47,5 +47,12 @@ namespace PotatoApi.Controllers
         {
             return this.Response(() => GameManager.Confirm(gameId, turn));
         }
+
+        [Route("games/{gameId}/actioncards/{turn}/{actionCardId}/{playerId}")]
+        [HttpPost]
+        public HttpResponseMessage AddPlayer(int gameId, ETurn turn, int actionCardId, int playerId)
+        {
+            return this.Response(() => GameManager.AddPlayer(gameId, turn, actionCardId, playerId));
+        }
     }
 }
