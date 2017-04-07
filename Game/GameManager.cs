@@ -103,11 +103,11 @@ namespace Game
                 return false;
             }
 
-            if (!new[] { EGameStatus.FirstHalf, EGameStatus.SecondHalf }.Contains(game.GameStatus))
+            if (!CanPlayActionCard(game))
             {
-                //playing?
                 return false;
             }
+
 
             var gamePlayer = game.GetPlayer(game.Turn);
             var card = GetCurrentActionCard(gamePlayer);
@@ -155,11 +155,11 @@ namespace Game
                 return false;
             }
 
-            if (!new[] { EGameStatus.FirstHalf, EGameStatus.SecondHalf }.Contains(game.GameStatus))
+            if (!CanPlayActionCard(game))
             {
-                //playing?
                 return false;
             }
+
 
             var gamePlayer = game.GetPlayer(game.Turn);
             var card = GetCurrentActionCard(gamePlayer);
@@ -183,6 +183,45 @@ namespace Game
             Save(game);
 
             return true;
+        }
+
+        public static bool PlayActionCard(int gameId, ETurn turn, int actionCardId)
+        {
+            var game = Load(gameId);
+            if (game == null)
+            {
+                return false;
+            }
+
+            if (!CanPlayActionCard(game))
+            {
+                return false;
+            }
+
+            if (game.Turn != turn)
+            {
+                //not your turn
+                return false;
+            }
+
+            var gamePlayer = game.GetPlayer(game.Turn);
+            var card = gamePlayer.ActionCards.FirstOrDefault(x => x.Id == actionCardId);
+            if (card == null)
+            {
+                //you don't have this card
+                return false;
+            }
+
+            gamePlayer.CurrentCard = card.Id;
+
+            Save(game);
+
+            return true;
+        }
+
+        private static bool CanPlayActionCard(Game game)
+        {
+            return new[] { EGameStatus.FirstHalf, EGameStatus.SecondHalf }.Contains(game.GameStatus);
         }
 
         private static void EvaluateRound(Game game)
