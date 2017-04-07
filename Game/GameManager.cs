@@ -141,12 +141,48 @@ namespace Game
             }
 
             cardPlayers.Add(playerSelected);
+
+            Save(game);
+
             return true;
         }
 
         public static bool RemovePlayer(int gameId, ETurn turn, int actionCardId, int playerId)
         {
-            throw new NotImplementedException();
+            var game = Load(gameId);
+            if (game == null)
+            {
+                return false;
+            }
+
+            if (!new[] { EGameStatus.FirstHalf, EGameStatus.SecondHalf }.Contains(game.GameStatus))
+            {
+                //playing?
+                return false;
+            }
+
+            var gamePlayer = game.GetPlayer(game.Turn);
+            var card = GetCurrentActionCard(gamePlayer);
+            if (card == null || card.Id != actionCardId)
+            {
+                //wrong card
+                return false;
+            }
+
+            //get attackers or defenders, depending on the turn. If game turn is identical to turn, then attackers, otherwise defenders
+            var cardPlayers = turn == game.Turn ? card.Attackers : card.Defenders;
+            var player = cardPlayers.FirstOrDefault(x => x.Id == playerId);
+            if (player == null)
+            {
+                //player not found on the card
+                return false;
+            }
+
+            cardPlayers.Remove(player);
+
+            Save(game);
+
+            return true;
         }
 
         private static void EvaluateRound(Game game)
