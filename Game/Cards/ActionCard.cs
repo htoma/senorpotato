@@ -19,9 +19,9 @@ namespace Game.Cards
 
         public enum EActionCardType
         {
-            Attack = 1,
-            Freekick = 2,
-            Penalty = 3
+            Penalty = 1,
+            Freekick = 2,           
+            Attack = 4
         }
 
         public int Id { get; set; }

@@ -18,7 +18,7 @@ namespace Game.Generators
                 new ActionCard(
                     (ActionCard.EActionCardType)
                     Seeder.Random()
-                        .Next((int) ActionCard.EActionCardType.Freekick, (int) ActionCard.EActionCardType.Penalty + 1),
+                        .Next((int) ActionCard.EActionCardType.Penalty, (int) ActionCard.EActionCardType.Freekick + 1),
                     equalDuration)
             };
         }

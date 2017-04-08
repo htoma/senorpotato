@@ -295,7 +295,7 @@ namespace Game
                 {
                     player.Captain.Value--;
                     //if player has no stamina left, but his captain skill is stamina and it applies to himself
-                    //and there's something lef
+                    //and there's something left
                 }
             }
         }
