@@ -12,6 +12,8 @@ namespace Game.Cards
 
         public ActionCard(EActionCardType type, int duration)
         {
+            Attackers = new List<Player>();
+            Defenders = new List<Player>();
             Id = BlobManager.GetNextId();
             PlayerLimit = (int) type;
             Duration = duration;

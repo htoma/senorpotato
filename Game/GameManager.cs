@@ -201,7 +201,7 @@ namespace Game
             }
 
             var gamePlayer = game.GetPlayer(game.Turn);
-            var card = gamePlayer.ActionCards.FirstOrDefault(x => x.Id == actionCardId);
+            var card = gamePlayer.ActionCards.FirstOrDefault(x => x.Id == actionCardId && !x.Played);
             if (card == null)
             {
                 //you don't have this card
@@ -269,8 +269,7 @@ namespace Game
             var card = GetCurrentActionCard(game);
             card.Played = true;
             game.Time += card.Duration;
-            game.Turn = 1 - game.Turn;
-
+            
             ComputeCardScore(card);
             UpdatePlayerStamina(card);
 
@@ -278,6 +277,12 @@ namespace Game
             {
                 game.Score.GoalScored(card.Score.First > 0 ? game.Turn : (1 - game.Turn));
             }
+
+            var player = game.GetPlayer(game.Turn);
+            player.CurrentCard = 0;
+
+            //switch turns
+            game.Turn = 1 - game.Turn;
         }
 
         private static void UpdatePlayerStamina(ActionCard card)
@@ -308,18 +313,21 @@ namespace Game
             var captainAttack = card.Attackers.FirstOrDefault(x => x.IsCaptain);
             if (captainAttack != null)
             {
-                if (captainAttack.Captain.Skill == ESkill.Attack)
+                if (new[] {Captain.EAffected.Self, Captain.EAffected.OwnTeam}.Contains(captainAttack.Captain.Affected))
                 {
-                    attack += captainAttack.Captain.Value;
+                    if (captainAttack.Captain.Skill == ESkill.Attack)
+                    {
+                        attack += captainAttack.Captain.Value;
+                    }
+                    else if (captainAttack.Captain.Skill == ESkill.Penalty &&
+                             card.PlayerLimit == (int)ActionCard.EActionCardType.Penalty)
+                    {
+                        attack += captainAttack.Captain.Value;
+                    }
                 }
-                else if (captainAttack.Captain.Skill == ESkill.Penalty &&
-                         card.PlayerLimit == (int) ActionCard.EActionCardType.Penalty)
+                else if (captainAttack.Captain.Skill == ESkill.Defence)
                 {
-                    attack += captainAttack.Captain.Value;
-                }
-                else if (captainAttack.Captain.Skill == ESkill.Defence &&
-                        captainAttack.Captain.Affected == Captain.EAffected.OpponentTeam)
-                {
+                    //weaken opponent's defence
                     defence += captainAttack.Captain.Value;
                 }
             }
@@ -327,22 +335,27 @@ namespace Game
             var captainDefence = card.Defenders.FirstOrDefault(x => x.IsCaptain);
             if (captainDefence != null)
             {
-                if (captainDefence.Captain.Skill == ESkill.Defence)
+                if (new[] {Captain.EAffected.Self, Captain.EAffected.OwnTeam}.Contains(captainDefence.Captain.Affected))
                 {
-                    defence += captainDefence.Captain.Value;
+                    if (captainDefence.Captain.Skill == ESkill.Defence)
+                    {
+                        defence += captainDefence.Captain.Value;
+                    }
                 }
-                else if (captainDefence.Captain.Skill == ESkill.Attack &&
-                         captainDefence.Captain.Affected == Captain.EAffected.OpponentTeam)
+                else if (captainDefence.Captain.Skill == ESkill.Attack)
                 {
+                    //weaken opponent's attack
+                    attack += captainDefence.Captain.Value;
+                }
+                else if (captainDefence.Captain.Skill == ESkill.Penalty &&
+                         card.PlayerLimit == (int) ActionCard.EActionCardType.Penalty)
+                {
+                    //weaken opponent's penalty
                     attack += captainDefence.Captain.Value;
                 }
             }
 
-            if (attack != defence)
-            {
-                bool firstScored = attack > defence;
-                card.Score = new Score(firstScored ? 1 : 0, firstScored ? 0 : 1);
-            }
+            card.Score = attack > defence ? new Score(1, 0) : new Score(0, 0);
         }
 
         private static void EndGame()
