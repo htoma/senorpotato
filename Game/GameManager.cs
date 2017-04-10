@@ -273,9 +273,9 @@ namespace Game
             ComputeCardScore(card);
             UpdatePlayerStamina(game, card);
 
-            if (card.Score.First > 0 || card.Score.Second > 0)
+            if (card.Score.First > card.Score.Second)
             {
-                game.Score.GoalScored(card.Score.First > 0 ? game.Turn : (1 - game.Turn));
+                game.Score.GoalScored(game.Turn);
             }
 
             var player = game.GetPlayer(game.Turn);
@@ -350,7 +350,7 @@ namespace Game
                 }
             }
 
-            card.Score = attack > defence ? new Score(1, 0) : new Score(0, 0);
+            card.Score = new Score(attack, defence);
         }
 
         private static void EndGame()
