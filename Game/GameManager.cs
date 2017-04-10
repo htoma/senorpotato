@@ -271,7 +271,7 @@ namespace Game
             game.Time += card.Duration;
             
             ComputeCardScore(card);
-            UpdatePlayerStamina(card);
+            UpdatePlayerStamina(game, card);
 
             if (card.Score.First > 0 || card.Score.Second > 0)
             {
@@ -285,23 +285,18 @@ namespace Game
             game.Turn = 1 - game.Turn;
         }
 
-        private static void UpdatePlayerStamina(ActionCard card)
+        private static void UpdatePlayerStamina(Game game, ActionCard card)
         {
-            foreach (var player in card.Attackers.Concat(card.Defenders))
+            var attackers = card.Attackers.Select(x => x.Id);
+            foreach (var player in game.GetPlayer(game.Turn).Players.Where(x => attackers.Contains(x.Id)))
             {
-                if (player.Skills.Stamina > 0)
-                {
-                    player.Skills.Stamina--;
-                }
-                else if (player.Skills.Stamina == 0 &&
-                         player.IsCaptain &&
-                         player.Captain.Skill == ESkill.Stamina &&
-                         player.Captain.Value > 0)
-                {
-                    player.Captain.Value--;
-                    //if player has no stamina left, but his captain skill is stamina and it applies to himself
-                    //and there's something left
-                }
+                player.Skills.Stamina--;
+            }
+
+            var defenders = card.Defenders.Select(x => x.Id);
+            foreach (var player in game.GetPlayer(1 - game.Turn).Players.Where(x => defenders.Contains(x.Id)))
+            {
+                player.Skills.Stamina--;
             }
         }
 
