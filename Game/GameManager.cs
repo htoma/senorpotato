@@ -61,8 +61,9 @@ namespace Game
             }
             var players = game.GetPlayer(turn).Players;
             var player = players.FirstOrDefault(x => x.Id == playerId);
-            if (player == null)
+            if (player == null || player.Skills.Stamina <= 0)
             {
+                //dead player can't be captain
                 return false;
             }
             players.ForEach(x => x.IsCaptain = false);
@@ -384,8 +385,6 @@ namespace Game
             }
 
             return new[] {EGameStatus.NotStarted, EGameStatus.HalfTime}.Contains(game.GameStatus);
-
-            //note(htoma): changing captain should be allowed during substitution?
         }        
     }
 }

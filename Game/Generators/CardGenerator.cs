@@ -8,18 +8,19 @@ namespace Game.Generators
     {
         public static IEnumerable<ActionCard> GenerateActionCards(int count)
         {
-            const int equalDuration = 12;
+            const int attackDuration = 12; //minutes
+            const int setPiecesDuration = 5; //minutes
 
             return new[]
             {
-                new ActionCard(ActionCard.EActionCardType.Attack, equalDuration),
-                new ActionCard(ActionCard.EActionCardType.Attack, equalDuration),
-                new ActionCard(ActionCard.EActionCardType.Attack, equalDuration),
+                new ActionCard(ActionCard.EActionCardType.Attack, attackDuration),
+                new ActionCard(ActionCard.EActionCardType.Attack, attackDuration),
+                new ActionCard(ActionCard.EActionCardType.Attack, attackDuration),
                 new ActionCard(
                     (ActionCard.EActionCardType)
                     Seeder.Random()
                         .Next((int) ActionCard.EActionCardType.Penalty, (int) ActionCard.EActionCardType.Freekick + 1),
-                    equalDuration)
+                    setPiecesDuration)
             };
         }
     }
