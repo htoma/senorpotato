@@ -21,17 +21,17 @@ namespace Game.Generators
                     Country = x.Country,
                     Skills = skills,
                     Overall = skills.Attack + skills.Defence + skills.Penalty,
-                    Captain = GenerateCaptain(Seeder.Random(), captains)
+                    SpecialSkill = GenerateCaptain(Seeder.Random(), captains)
                 };
             }).ToList();
         }
 
-        public static Captain FromEntity(CaptainEntity entity)
+        public static SpecialSkill FromEntity(CaptainEntity entity)
         {
-            return new Captain
+            return new SpecialSkill
             {
                 Id = int.Parse(entity.Id),
-                Affected = (Captain.EAffected)Enum.Parse(typeof(Captain.EAffected), entity.Affected),
+                Affected = (SpecialSkill.EAffected)Enum.Parse(typeof(SpecialSkill.EAffected), entity.Affected),
                 Skill = (ESkill)Enum.Parse(typeof(ESkill), entity.Skill),
                 Value = entity.Value
             };
@@ -53,7 +53,7 @@ namespace Game.Generators
             return rand.Next(1, 5);
         }
 
-        private static Captain GenerateCaptain(Random rand, IList<CaptainEntity> captains)
+        private static SpecialSkill GenerateCaptain(Random rand, IList<CaptainEntity> captains)
         {
             if (captains.Count == 0)
             {

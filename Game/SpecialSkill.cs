@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Game
 {
-    public class Captain
+    public class SpecialSkill
     {
         public enum EAffected
         {

@@ -309,45 +309,45 @@ namespace Game
             var captainAttack = card.Attackers.FirstOrDefault(x => x.IsCaptain);
             if (captainAttack != null)
             {
-                if (new[] {Captain.EAffected.Self, Captain.EAffected.OwnTeam}.Contains(captainAttack.Captain.Affected))
+                if (new[] {SpecialSkill.EAffected.Self, SpecialSkill.EAffected.OwnTeam}.Contains(captainAttack.SpecialSkill.Affected))
                 {
-                    if (captainAttack.Captain.Skill == ESkill.Attack)
+                    if (captainAttack.SpecialSkill.Skill == ESkill.Attack)
                     {
-                        attack += captainAttack.Captain.Value;
+                        attack += captainAttack.SpecialSkill.Value;
                     }
-                    else if (captainAttack.Captain.Skill == ESkill.Penalty &&
+                    else if (captainAttack.SpecialSkill.Skill == ESkill.Penalty &&
                              card.PlayerLimit == (int)ActionCard.EActionCardType.Penalty)
                     {
-                        attack += captainAttack.Captain.Value;
+                        attack += captainAttack.SpecialSkill.Value;
                     }
                 }
-                else if (captainAttack.Captain.Skill == ESkill.Defence)
+                else if (captainAttack.SpecialSkill.Skill == ESkill.Defence)
                 {
                     //weaken opponent's defence
-                    defence += captainAttack.Captain.Value;
+                    defence += captainAttack.SpecialSkill.Value;
                 }
             }
 
             var captainDefence = card.Defenders.FirstOrDefault(x => x.IsCaptain);
             if (captainDefence != null)
             {
-                if (new[] {Captain.EAffected.Self, Captain.EAffected.OwnTeam}.Contains(captainDefence.Captain.Affected))
+                if (new[] {SpecialSkill.EAffected.Self, SpecialSkill.EAffected.OwnTeam}.Contains(captainDefence.SpecialSkill.Affected))
                 {
-                    if (captainDefence.Captain.Skill == ESkill.Defence)
+                    if (captainDefence.SpecialSkill.Skill == ESkill.Defence)
                     {
-                        defence += captainDefence.Captain.Value;
+                        defence += captainDefence.SpecialSkill.Value;
                     }
                 }
-                else if (captainDefence.Captain.Skill == ESkill.Attack)
+                else if (captainDefence.SpecialSkill.Skill == ESkill.Attack)
                 {
                     //weaken opponent's attack
-                    attack += captainDefence.Captain.Value;
+                    attack += captainDefence.SpecialSkill.Value;
                 }
-                else if (captainDefence.Captain.Skill == ESkill.Penalty &&
+                else if (captainDefence.SpecialSkill.Skill == ESkill.Penalty &&
                          card.PlayerLimit == (int) ActionCard.EActionCardType.Penalty)
                 {
                     //weaken opponent's penalty
-                    attack += captainDefence.Captain.Value;
+                    attack += captainDefence.SpecialSkill.Value;
                 }
             }
 

@@ -68,7 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Captain.cs" />
+    <Compile Include="SpecialSkill.cs" />
     <Compile Include="Cards\ActionCard.cs" />
     <Compile Include="EGameStatus.cs" />
     <Compile Include="ESkill.cs" />
