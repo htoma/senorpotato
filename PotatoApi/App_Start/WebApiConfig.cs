@@ -8,17 +8,13 @@ namespace PotatoApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-            //config.Formatters.JsonFormatter.SupportedMediaTypes
-            //    .Add(new MediaTypeHeaderValue("text/html"));
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "{controller}/{id}",
-                defaults: new { controller="Players", id = RouteParameter.Optional }
+                routeTemplate: "{controller}",
+                defaults: new {controller = "User", id = RouteParameter.Optional}
             );
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings

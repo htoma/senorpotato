@@ -78,6 +78,7 @@
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Generators\CardGenerator.cs" />
     <Compile Include="Generators\PlayerGenerator.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Utils\RandomSelectors.cs" />
     <Compile Include="Utils\Seeder.cs" />
     <Compile Include="Player.cs" />
